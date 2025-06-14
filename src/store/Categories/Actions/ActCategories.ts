@@ -6,19 +6,20 @@ type TResponse = { id: number; name: string; img: string; prefix: string }[];
 
 const actGetCategories = createAsyncThunk(
   "categories/actGetCategories",
-  async (_, { thunkAPI }) => {
-    const { rejectWithValue } = thunkAPI;
+  async (_, thunkAPI) => {
     try {
-      const response = await axios.get<TResponse>("http://localhost:5005/category");
+      const response = await axios.get<TResponse>(
+        "http://localhost:5005/category"
+      );
       return response.data;
     } catch (error) {
-        if (axios.isAxiosError(error)) {
-            return rejectWithValue(
-              error.response?.data.message || error.message
-            );
-        } else {
-            return rejectWithValue("An unexpected error occurred");
-        }
+      if (axios.isAxiosError(error)) {
+        return thunkAPI.rejectWithValue(
+          error.response?.data.message || error.message
+        );
+      } else {
+        return thunkAPI.rejectWithValue("An unexpected error occurred");
+      }
     }
   }
 );
