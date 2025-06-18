@@ -7,13 +7,15 @@ const { container, wrapper } = styles;
 
 const MainLayout = () => {
   return (
-    <Container className={container}>
+    <>
+      <Container className={container}>
         <Header />
         <div className={wrapper}>
-            <Outlet />
+          <Outlet />
         </div>
-        <Footer/>
-    </Container>
+        <Footer />
+      </Container>
+    </>
   );
 };
 

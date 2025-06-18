@@ -1,16 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import type { TCategory } from "@customTypes/category";
+import type { TProduct } from "@customTypes/product";
 
 
-type TResponse = TCategory[];
+type TResponse = TProduct[];
 
-const actGetCategories = createAsyncThunk(
-  "categories/actGetCategories",
-  async (_, thunkAPI) => {
+const actGetProductByCatPrefix = createAsyncThunk(
+  "Products/actGetProductByCatPrefix",
+  async (prefix: string, thunkAPI) => {
     try {
       const response = await axios.get<TResponse>(
-        "http://localhost:5005/categories"
+       `http://localhost:5005/products?cat_prefix=${prefix}`
       );
       return response.data;
     } catch (error) {
@@ -25,4 +25,4 @@ const actGetCategories = createAsyncThunk(
   }
 );
 
-export { actGetCategories };
+export { actGetProductByCatPrefix };

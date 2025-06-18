@@ -1,0 +1,1 @@
+export type TCategory = {title:string, id?:number, name:string, img:string, prefix:string};

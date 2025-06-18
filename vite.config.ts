@@ -7,4 +7,13 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 export default defineConfig({
   // base: "/ClothesStore/",
   plugins: [react(), svgr(), tsconfigPaths()],
+  // server: {
+  //   proxy: {
+  //     '/images': {
+  //       target: 'http://localhost:5005',
+  //       changeOrigin: true,
+  //       rewrite: (path) => path.replace(/^\/images/, '/images')
+  //     }
+  //   }
+  // }
 });
