@@ -5,8 +5,8 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // base: "/ClothesStore/",
   plugins: [react(), svgr(), tsconfigPaths()],
+  base: "/ClothesStore/"
   // server: {
   //   proxy: {
   //     '/images': {
