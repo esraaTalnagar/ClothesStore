@@ -8,7 +8,7 @@ import { useEffect, useState, memo } from "react";
 const { product, productImg, addToCart , maxQuantity } = styles;
 
 
-const Product = memo[({ title, price, img, id, max, quantity }: TProduct) => {
+const Product = memo(({ title, price, img, id, max, quantity }: TProduct) => {
   const dispatch = useAppDispatch();
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
   const reamainingQuantity = max - (quantity ?? 0);
@@ -57,6 +57,6 @@ const Product = memo[({ title, price, img, id, max, quantity }: TProduct) => {
       </Button>
     </div>
   );
-}];
+});
 
 export default Product;

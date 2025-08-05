@@ -18,7 +18,7 @@ const Products = () => {
 
   const productFullInfo = records.map((el) => ({
     ...el,
-    quantity: cartItems[el.id] || 0,
+    quantity: el.id !== undefined ? cartItems[el.id as keyof typeof cartItems] || 0 : 0,
   }));
 
   useEffect(() => {
