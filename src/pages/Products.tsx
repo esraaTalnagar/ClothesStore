@@ -1,35 +1,45 @@
-import {  useEffect } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { useParams } from "react-router-dom";
-import { actGetProductByCatPrefix , cleanUp } from "@store/Products/ProductsSlice";
+import {
+  actGetProductByCatPrefix,
+  cleanUp,
+} from "@store/Products/ProductsSlice";
 import { Container } from "react-bootstrap";
-import { GridList } from "@components/common";
+import { GridList, Heading } from "@components/common";
 import { Loading } from "@components/feedback";
 import { Product } from "@components/ecommerce";
 
 const Products = () => {
   const Params = useParams();
   const dispatch = useAppDispatch();
-  const {loading, error, records} = useAppSelector((state) => state.Products);
+  const { loading, error, records } = useAppSelector((state) => state.Products);
+  const cartItems = useAppSelector((state) => state.Cart.items);
 
+  const productFullInfo = records.map((el) => ({
+    ...el,
+    quantity: cartItems[el.id] || 0,
+  }));
 
   useEffect(() => {
-      dispatch(actGetProductByCatPrefix(Params.prefix as string));
-      return () => {
-        dispatch(cleanUp());
-      };
-  }, [dispatch, Params ]);
+    dispatch(actGetProductByCatPrefix(Params.prefix as string));
+    return () => {
+      dispatch(cleanUp());
+    };
+  }, [dispatch, Params]);
+
   return (
-    <Container>
-      <Loading loading={loading} error={error}>
+    <>
+      <Heading><span className="text-capitalize">{Params.prefix}</span> Products</Heading>
+      <Container>
         <Loading loading={loading} error={error}>
           <GridList
-            records={records}
+            records={productFullInfo} // use productFullInfo instead of records
             renderItem={(record) => <Product {...record} />}
-          />
-        </Loading>
+        />
       </Loading>
     </Container>
+    </>
   );
 };
 

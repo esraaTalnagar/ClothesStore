@@ -11,7 +11,10 @@ import Register from '@pages/Register';
 import Error from '@pages/Error';
 import "@styles/global.css"
 import { Provider } from 'react-redux';
-import  store  from '@store/index';
+import  store  from "@store/index";
+import {persistor} from "@store/index";
+import { PersistGate } from 'redux-persist/integration/react';
+import './services/axios-global'
 
 const router = createBrowserRouter([
   {
@@ -55,6 +58,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
-    <RouterProvider router={router} />
+    <PersistGate loading={null} persistor={persistor}>
+      <RouterProvider router={router} />
+    </PersistGate>
   </Provider>
 )

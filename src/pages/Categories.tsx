@@ -5,6 +5,7 @@ import { Container } from "react-bootstrap";
 import { Category } from "@components/ecommerce";
 import { Loading } from "@components/feedback";
 import { GridList } from "@components/common";
+import {Heading} from "@components/common";
 
 const Categories = () => {
   const dispatch = useAppDispatch();
@@ -23,11 +24,14 @@ const Categories = () => {
   // )): "There are no Categories";
 
   return (
+    <>
+    <Heading>Categories</Heading>
     <Container>
       <Loading loading={loading} error={error}>
         <GridList records={records} renderItem={(record) => <Category {...record} />} />
       </Loading>
     </Container>
+    </>
   );
 };
 

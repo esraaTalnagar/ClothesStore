@@ -1,5 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice  } from "@reduxjs/toolkit";
 import type { TProduct } from "@customTypes/product";
+
+
 
 interface ICartState {
     items: {[key:number] : number};
@@ -27,6 +29,7 @@ const cartSlice = createSlice({
     }
   }
 });
+
 
 export const { addToCart } = cartSlice.actions;
 export default cartSlice.reducer;

@@ -1,18 +1,37 @@
 import Logo from "@assets/svg/logo.svg?react";
 import { useAppSelector } from "@store/hooks";
 import styles from "./styles.module.css";
+import {getTotalQuantitySelector} from "@store/Cart/selectors/index";
+import { useState, useEffect } from "react";
 
-const { basketContainer, basketQuantity } = styles;
+const { basketContainer, basketQuantity, pumpCartQuantity, basketCart } =
+  styles;
 
 const HeaderBasket = () => {
-  const CartItem = useAppSelector((state) => state.Cart.items);
-  console.log(CartItem);
-  const totalQuantity = Object.values(CartItem).reduce((acc, val) => {return acc + val}, 0);
-  console.log(totalQuantity);
+  const [isAnimated, setIsAnimated] = useState(false);
+  const totalQuantity = useAppSelector(getTotalQuantitySelector);
+
+  useEffect(() => {
+    if (totalQuantity > 0) {
+      setIsAnimated(true);
+      const timer = setTimeout(() => {
+        setIsAnimated(false);
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [totalQuantity]);
+
   return (
     <div className={basketContainer}>
-      <Logo />
-      <div className={basketQuantity}>0</div>
+      <div className={basketCart}>
+        <Logo title="basket icon" />
+        <div
+          className={`${basketQuantity} ${isAnimated ? pumpCartQuantity : ""}`}
+        >
+          {totalQuantity}
+        </div>
+      </div>
+      <h3>Basket</h3>
     </div>
   );
 };
